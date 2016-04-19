@@ -1,0 +1,85 @@
+{
+  "author": {
+    "email": "admin@webcarrot.pl",
+    "name": "webcarrot"
+  },
+  "bugs": {
+    "url": "https://github.com/webcarrot/react-console-component/issues"
+  },
+  "description": "Simple react component that display console messages",
+  "main": "./src/index.js",
+  "installable": false,
+  "keywords": [
+    "console",
+    "react",
+    "react-component"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/webcarrot/react-console-component/blob/master/LICENSE"
+    }
+  ],
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "webcarrot",
+      "email": "admin@webcarrot.pl"
+    }
+  ],
+  "name": "react-console-component",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webcarrot/react-console-component.git"
+  },
+  "version": "0.0.1",
+  "esformatter": {
+    "plugins": [
+      "esformatter-ignore",
+      "esformatter-quotes",
+      "esformatter-jsx"
+    ],
+    "quotes": {
+      "type": "double",
+      "avoidEscape": false
+    },
+    "jsx": {
+      "formatJSX": true,
+      "attrsOnSameLineAsTag": false,
+      "maxAttrsOnTag": 1,
+      "firstAttributeOnSameLine": true,
+      "alignWithFirstAttribute": true,
+      "spaceInJSXExpressionContainers": "",
+      "htmlOptions": {}
+    }
+  },
+  "jshintConfig": {
+    "esnext": true,
+    "node": true,
+    "strict": true,
+    "unused": true
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "rules": {
+      "no-underscore-dangle": 0,
+      "quotes": 0,
+      "no-unused-vars": 1
+    },
+    "plugins": [
+      "react"
+    ],
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "blockBindings": true,
+      "jsx": true,
+      "modules": true,
+      "forOf": true
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
+    }
+  }
+}
