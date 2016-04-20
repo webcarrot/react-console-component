@@ -48,7 +48,7 @@ export default function parser(rawData) {
     } else {
       if (typeof raw === "object" && raw) {
         o.current = makeObjectPart(raw);
-      } else if (typeof raw === "string" && /(?!\\)%(s|d|i|f|o|O|c)/.test(raw)) {
+      } else if (typeof raw === "string" && /(?!%)%(s|d|i|f|o|O|c)/.test(raw)) {
         o.current = makeComplex(raw);
         o.subParts = o.current.part.subParts;
       } else {
@@ -179,7 +179,7 @@ export function makeStylePart(raw) {
 
 export function makeComplex(raw) {
   const subParts = [];
-  const content = raw.replace(/(?!\\)%(.)/g, (_, subPartType) => {
+  const content = raw.replace(/(?!%)%(.)/g, (_, subPartType) => {
     subParts.push(subPartType);
     return SUB_REPLACE;
   }).split(SUB_REPLACE);
