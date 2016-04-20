@@ -71,7 +71,7 @@ export default function parser(rawData) {
           const {part: subPart} = subData;
           switch (subPart.type) {
             case TYPE_STYLE:
-              part.texts.slice(index).map(subText => subText.part.style = subPart.content);
+              part.texts.slice(index).forEach(subText => subText.part.style = subPart.content);
               break;
             case TYPE_SIMPLE:
             case TYPE_OBJECT:
