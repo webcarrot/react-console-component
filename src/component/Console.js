@@ -50,7 +50,8 @@ export default class Console extends React.Component {
       'log',
       'error',
       'info',
-      'debug'
+      'debug',
+      'warn'
     ],
     consoleStyle: {
       top: 0,
