@@ -14,7 +14,7 @@ const TYPE_OBJECT = "object";
 const TYPE_STYLE = "style";
 
 const SUB_REPLACE = "___SUB_REPLACE___";
-const SUB_REGEXP = /([^%]|^)%(s|d|i|f|o|O|c)/g;
+const SUB_REGEXP = /(?!=%)%(s|d|i|f|o|O|c)/g;
 const MAX_DEPTH = 10;
 
 export { TYPE_SIMPLE, TYPE_OBJECT };
@@ -37,7 +37,7 @@ export default function parser(rawData) {
           break;
         case COMPLEX_OBJECT:
         case COMPLEX_OBJECT_2:
-          parts.push(makeObjectPart(raw));
+          parts.push(raw && typeof raw === "object" ? makeObjectPart(raw) : makeSimplePart(raw));
           break;
         case COMPLEX_STYLE:
           parts.push(makeStylePart(raw));
@@ -106,7 +106,7 @@ export default function parser(rawData) {
 
 export function makeSimplePart(raw) {
   const realType = typeof raw;
-  const content = raw + "" || realType;
+  const content = realType === "string" ? raw : raw + "" || realType;
   const part = {
     type: TYPE_SIMPLE,
     realType: realType,
@@ -179,9 +179,9 @@ export function makeStylePart(raw) {
 
 export function makeComplex(raw) {
   const subParts = [];
-  const content = raw.replace(SUB_REGEXP, (_, prefix, subPartType) => {
+  const content = raw.replace(SUB_REGEXP, (_, subPartType) => {
     subParts.push(subPartType);
-    return prefix + SUB_REPLACE;
+    return SUB_REPLACE;
   }).split(SUB_REPLACE);
   if (subParts[0] === COMPLEX_STYLE && content[0] === "") {
     content.shift();
