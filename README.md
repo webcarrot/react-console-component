@@ -2,21 +2,25 @@
 Simple react component that display console messages
 
 ## INSTALL
-Copy paste - no time to provide build
+
+```cmd
+npm install react-console-component
+```
 
 ## USAGE:
-[Read source?](/src/component/Console.js)
+
+[Read source](/source/component/Console.js)
 
 ```javascript
 // ...
-import Console from "../foo/bar/console/path";
+import Console from "react-console-component";
 // ...
-<Console capturing={true} />
+<Console capturing />
 // ...
 ```
 
 ## TODO:
-Build and make dist
+* Make it pretty
 
 ## SCREENSHOT:
 

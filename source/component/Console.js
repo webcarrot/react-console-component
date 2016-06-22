@@ -39,7 +39,13 @@ export default class Console extends React.Component {
     filterActiveStyle: React.PropTypes.object.isRequired,
     filterInActiveStyle: React.PropTypes.object.isRequired,
     searchStyle: React.PropTypes.object.isRequired,
+    clearStyle: React.PropTypes.object.isRequired,
+    startStopStyle: React.PropTypes.object.isRequired,
+    closeStyle: React.PropTypes.object.isRequired,
     listStyle: React.PropTypes.object.isRequired,
+    footerStyle: React.PropTypes.object.isRequired,
+    evalInputStyle: React.PropTypes.object.isRequired,
+    evalRunStyle: React.PropTypes.object.isRequired,
     openStyle: React.PropTypes.object.isRequired,
     messageStyle: React.PropTypes.object
   };
@@ -47,11 +53,11 @@ export default class Console extends React.Component {
   static defaultProps = {
     capturing: false,
     types: [
-      'log',
-      'error',
-      'info',
-      'debug',
-      'warn'
+      "log",
+      "error",
+      "info",
+      "debug",
+      "warn"
     ],
     consoleStyle: {
       top: 0,
@@ -64,7 +70,8 @@ export default class Console extends React.Component {
       width: "100%",
       height: "100%",
       zIndex: 99999,
-      padding: "4em 10px"
+      padding: "4em 10px",
+      boxSizing: "border-box"
     },
     headerStyle: {
       top: 0,
@@ -151,7 +158,6 @@ export default class Console extends React.Component {
     super(props, context);
     this.state = {
       capturing: this.props.capturing,
-      enabled: false,
       visible: false,
       messages: [],
       searchRegExp: null,
@@ -164,42 +170,56 @@ export default class Console extends React.Component {
       debug: typeof window === "undefined" ? "" : window.localStorage.getItem("debug")
     };
     this._open = () => this.setState({
-        visible: true
-      });
+      visible: true
+    });
     this._close = () => this.setState({
-        visible: false
-      });
-    this._clear = () => this.setState({
+      visible: false
+    });
+    this._clear = () => {
+      this._buffer = [];
+      this.setState({
         messages: []
       });
+    };
     this._handleStartStop = () => this.startStop();
     this._handleSearch = ev => this.search(ev.target.value);
     this._handleEvalChange = ev => this.setState({
-        eval: ev.target.value
-      });
+      eval: ev.target.value
+    });
     this._runEval = () => this.runEval();
     this._handleDebugChange = ev => this.setState({
-        debug: ev.target.value
-      });
+      debug: ev.target.value
+    });
     this._setDebug = () => this.setDebug();
     this._handleGlobalError = (...data) => this.addMessage("error", data);
+    this._enabled = false;
+    this._buffer = [];
+    this._bufferInterval = setInterval(() => {
+      const buffer = this._buffer;
+      if (buffer.length) {
+        this._buffer = [];
+        this.setState({
+          messages: this.state.messages.concat(buffer)
+        });
+      }
+    }, 500);
   }
 
   componentDidMount() {
     if (this.props.capturing) {
       this.replaceNative();
     }
-    this.setState({
-      enabled: true
-    });
+    this._enabled = true;
+    this.forceUpdate();
   }
 
-  shouldComponentUpdate(_, nextState) {
-    return nextState.enabled !== this.state.enabled || nextState.visible !== this.state.visible || nextState.capturing !== this.state.capturing || nextState.visible;
+  shouldComponentUpdate(_, {visible, capturing}) {
+    return visible !== this.state.visible || capturing !== this.state.capturing || visible;
   }
 
   componentWillUnmount() {
     this.restoreNative();
+    clearInterval(this._bufferInterval);
   }
 
   startStop() {
@@ -249,14 +269,12 @@ export default class Console extends React.Component {
     }
     this._native[type].apply(console, rawData);
     const {data, text} = parser(rawData);
-    this.setState({
-      messages: this.state.messages.concat([{
-        no: this.state.messages.length,
-        type: type,
-        data: data,
-        text: text
-      }])
-    });
+    this._buffer.push({
+      no: this.state.messages.length + this._buffer.length,
+      type: type,
+      data: data,
+      text: text
+    })
   }
 
   search(text) {
@@ -309,7 +327,7 @@ export default class Console extends React.Component {
   }
 
   render() {
-    if (this.state.enabled) {
+    if (this._enabled) {
       if (this.state.visible) {
         return this.renderConsole();
       } else {

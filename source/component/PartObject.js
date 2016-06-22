@@ -11,6 +11,7 @@ export default class PartObject extends React.Component {
       content: React.PropTypes.string.isRequired
     }).isRequired,
     style: React.PropTypes.object.isRequired,
+    nameStyle: React.PropTypes.object.isRequired,
     contentStyle: React.PropTypes.object.isRequired
   };
 
