@@ -1,10 +1,10 @@
-# react-console-component
+# webcarrot-react-console-component
 Simple react component that display console messages
 
 ## INSTALL
 
 ```cmd
-npm install react-console-component
+npm install webcarrot-react-console-component
 ```
 
 ## USAGE:
@@ -13,7 +13,7 @@ npm install react-console-component
 
 ```javascript
 // ...
-import Console from "react-console-component";
+import Console from "webcarrot-react-console-component";
 // ...
 <Console capturing />
 // ...
@@ -24,4 +24,4 @@ import Console from "react-console-component";
 
 ## SCREENSHOT:
 
-![alt tag](http://webcarrot.eu/github/react-console-component.png)
+![alt tag](http://webcarrot.eu/github/webcarrot-react-console-component.png)

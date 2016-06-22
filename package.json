@@ -4,7 +4,7 @@
     "name": "webcarrot"
   },
   "bugs": {
-    "url": "https://github.com/webcarrot/react-console-component/issues"
+    "url": "https://github.com/webcarrot/webcarrot-react-console-component/issues"
   },
   "description": "Simple react component that display console messages",
   "main": "./distribution/index.js",
@@ -23,7 +23,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/webcarrot/react-console-component/blob/master/LICENSE"
+      "url": "https://github.com/webcarrot/webcarrot-react-console-component/blob/master/LICENSE"
     }
   ],
   "maintainers": [
@@ -32,10 +32,10 @@
       "email": "admin@webcarrot.pl"
     }
   ],
-  "name": "react-console-component",
+  "name": "webcarrot-react-console-component",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webcarrot/react-console-component.git"
+    "url": "git+https://github.com/webcarrot/webcarrot-react-console-component.git"
   },
   "version": "0.0.4",
   "esformatter": {
